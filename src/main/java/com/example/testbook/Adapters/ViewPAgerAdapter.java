@@ -1,4 +1,4 @@
-package com.example.testbook;
+package com.example.testbook.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.testbook.Model.Classes;
 import com.example.testbook.Model.CourseCards;
+import com.example.testbook.R;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -66,13 +67,15 @@ public class ViewPAgerAdapter extends PagerAdapter {
 //                        Uri.parse( classes.getClassInfo().getFacultyImageUrl()),facultyImageIV)
 //            Picasso.get().load(classes.getClassInfo().getFacultyImageUrl()).into(facultyImageIV);
 
+
             // the imageurl data is being fetched from the api but its not loading with glide
             // or piccaso
-
             //todo maybe net issue or something very uncommon will see at end
+
             //for test loding direct image from api still not wrking
             Picasso.get().load("http://cdn.testbook.com/images/production/472-X-200-faculty-final" +
                     "%20%282%29_product_facultiesImage_all_1599122759.png").into(facultyImageIV);
+
         }
     }
 

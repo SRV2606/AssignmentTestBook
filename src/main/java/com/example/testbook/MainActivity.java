@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.testbook.Adapters.CoursesAdapter;
+import com.example.testbook.Adapters.ViewPAgerAdapter;
 import com.example.testbook.Helpers.Injector;
 import com.example.testbook.Model.CourseCards;
 import com.example.testbook.ViewModels.CourseCardViewModel;
@@ -47,14 +49,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false);
         coursesRecycler.setLayoutManager(linearLayoutManager);
 
-        Integer[] colors_temp = {
-                getResources().getColor(R.color.colorAccent),
-                getResources().getColor(R.color.color2),
-                getResources().getColor(R.color.color3),
-                getResources().getColor(R.color.colorPrimaryDark)
-        };
 
-        colors = colors_temp;
 
         observeLiveDetails();
     }
@@ -71,9 +66,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(CourseCards courseCards) {
 
+        Integer[] colors_temp = {
+                getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.color2),
+                getResources().getColor(R.color.color3),
+                getResources().getColor(R.color.colorPrimaryDark)
+        };
+
+        colors = colors_temp;
+
         adapter = new ViewPAgerAdapter(courseCards, this);
         viewPager.setAdapter(adapter);
-        viewPager.setPadding(130, 0, 130, 0);
+        viewPager.setPadding(20, 0, 20, 0);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

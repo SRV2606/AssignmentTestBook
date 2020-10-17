@@ -1,4 +1,4 @@
-package com.example.testbook;
+package com.example.testbook.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testbook.Model.Classes;
 import com.example.testbook.Model.CourseCards;
+import com.example.testbook.R;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
