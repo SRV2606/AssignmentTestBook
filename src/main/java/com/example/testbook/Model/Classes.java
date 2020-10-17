@@ -21,9 +21,24 @@ public class Classes extends ClassLoader implements Parcelable {
     @SerializedName("_id")
     String id;
 
+    @SerializedName("courseLogo")
+
+    String courseLogo;
+
+    @SerializedName("classInfo")
+
+    ClassInfo classInfo;
+
+    @SerializedName("titles")
+
+    String courseTitles;
+
     protected Classes(Parcel in) {
 
         id = in.readString();
+        courseLogo = in.readString();
+        courseTitles = in.readString();
+        in.readValue(classInfo);
     }
 
     public String getId() {
@@ -32,6 +47,30 @@ public class Classes extends ClassLoader implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCourseLogo() {
+        return courseLogo;
+    }
+
+    public void setCourseLogo(String courseLogo) {
+        this.courseLogo = courseLogo;
+    }
+
+    public ClassInfo getClassInfo() {
+        return classInfo;
+    }
+
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
+    }
+
+    public String getCourseTitles() {
+        return courseTitles;
+    }
+
+    public void setCourseTitles(String courseTitles) {
+        this.courseTitles = courseTitles;
     }
 
     @Override
@@ -43,5 +82,8 @@ public class Classes extends ClassLoader implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
 
         parcel.writeString(id);
+        parcel.writeString(courseLogo);
+        parcel.writeString(courseTitles);
+        parcel.writeValue(classInfo);
     }
 }

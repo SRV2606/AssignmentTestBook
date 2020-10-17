@@ -1,12 +1,15 @@
 package com.example.testbook;
 
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.testbook.Helpers.Injector;
 import com.example.testbook.Model.CourseCards;
@@ -20,9 +23,18 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.checkbox)
-    TextView checkbox;
+
+    @BindView(R.id.coursesRecycler)
+    RecyclerView coursesRecycler;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+
+
     private CourseCardViewModel courseViewModel;
+    Integer[] colors = null;
+    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    private CoursesAdapter coursesAdapter;
+    private ViewPAgerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +43,76 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         CourseCardsViewModelFactory viewModelFactory = Injector.provideViewModelFactory(Objects.requireNonNull(getApplication()));
         courseViewModel = ViewModelProviders.of(this, viewModelFactory).get(CourseCardViewModel.class);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false);
+        coursesRecycler.setLayoutManager(linearLayoutManager);
+
+        Integer[] colors_temp = {
+                getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.color2),
+                getResources().getColor(R.color.color3),
+                getResources().getColor(R.color.colorPrimaryDark)
+        };
+
+        colors = colors_temp;
+
         observeLiveDetails();
     }
 
     private void observeLiveDetails() {
         courseViewModel.getCourseCards().observe(this, new Observer<CourseCards>() {
-
             @Override
             public void onChanged(CourseCards courseCards) {
-                Toast.makeText(MainActivity.this, "check" + courseCards.getSuccess(), Toast.LENGTH_SHORT).show();
-                checkbox.setText(courseCards.getCourses().getClasses().get(0).getId());
+                setUpRecyclerView(courseCards);
+                setupViewPager(courseCards);
             }
         });
+    }
+
+    private void setupViewPager(CourseCards courseCards) {
+
+        adapter = new ViewPAgerAdapter(courseCards, this);
+        viewPager.setAdapter(adapter);
+        viewPager.setPadding(130, 0, 130, 0);
+        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                if (position < (adapter.getCount() - 1) && position < (colors.length - 1)) {
+                    viewPager.setBackgroundColor(
+
+                            (Integer) argbEvaluator.evaluate(
+                                    positionOffset,
+                                    colors[position],
+                                    colors[position + 1]
+                            )
+                    );
+                } else {
+                    viewPager.setBackgroundColor(colors[colors.length - 1]);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+    }
+
+
+    private void setUpRecyclerView(CourseCards courseCards) {
+
+        coursesAdapter = new CoursesAdapter(getApplicationContext(), courseCards, MainActivity.this);
+        coursesRecycler.setAdapter(coursesAdapter);
+        new PagerSnapHelper().attachToRecyclerView(coursesRecycler);
+        coursesAdapter.notifyDataSetChanged();
     }
 }
