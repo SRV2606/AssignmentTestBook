@@ -64,12 +64,15 @@ public class ViewPAgerAdapter extends PagerAdapter {
         if (classes.getClassInfo().getFacultyImageUrl() != null || !classes.getClassInfo().getFacultyImageUrl().equals("")) {
 //                GlideToVectorYou.justLoadImage(mActivity,
 //                        Uri.parse( classes.getClassInfo().getFacultyImageUrl()),facultyImageIV)
+//            Picasso.get().load(classes.getClassInfo().getFacultyImageUrl()).into(facultyImageIV);
 
             // the imageurl data is being fetched from the api but its not loading with glide
             // or piccaso
 
             //todo maybe net issue or something very uncommon will see at end
-            Picasso.get().load(classes.getClassInfo().getFacultyImageUrl()).into(facultyImageIV);
+            //for test loding direct image from api still not wrking
+            Picasso.get().load("http://cdn.testbook.com/images/production/472-X-200-faculty-final" +
+                    "%20%282%29_product_facultiesImage_all_1599122759.png").into(facultyImageIV);
         }
     }
 
