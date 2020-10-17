@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testbook.Model.Classes;
@@ -24,6 +25,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
     private final CourseCards mCourseCards;
     private final Activity mActivity;
 
+
     public CoursesAdapter(Context applicationContext, CourseCards courseCards, Activity activity) {
         this.context = applicationContext;
         this.mCourseCards = courseCards;
@@ -36,7 +38,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.banner_design, parent, false);
+                .inflate(R.layout.banner_cards, parent, false);
 
         return new MyViewHolder(itemView);
 
@@ -55,14 +57,27 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+//        @BindView(R.id.selectLogo_IV)
+//        ImageView selectLogoIV;
+//        @BindView(R.id.facultyImage_IV)
+//        ImageView facultyImageIV;
+//        @BindView(R.id.courseTitle_TV)
+//        TextView courseTitleTV;
+//        @BindView(R.id.constraintLayout)
+//        ConstraintLayout constraintLayout;
+
         @BindView(R.id.selectLogo_IV)
         ImageView selectLogoIV;
         @BindView(R.id.facultyImage_IV)
         ImageView facultyImageIV;
         @BindView(R.id.courseTitle_TV)
         TextView courseTitleTV;
-        @BindView(R.id.constraintLayout)
-        ConstraintLayout constraintLayout;
+        @BindView(R.id.mainRL)
+        RelativeLayout mainRL;
+        @BindView(R.id.baseLayout)
+        RelativeLayout baseLayout;
+        @BindView(R.id.cardLayout)
+        CardView cardLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,9 +87,9 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyViewHo
         public void bind(Classes classes, int position) {
 
             if (position % 2 == 0) {
-                constraintLayout.setBackground(context.getResources().getDrawable(R.color.color2));
+                mainRL.setBackground(context.getResources().getDrawable(R.color.color2));
             } else {
-                constraintLayout.setBackground(context.getResources().getDrawable(R.color.color3));
+                mainRL.setBackground(context.getResources().getDrawable(R.color.color3));
 
             }
 

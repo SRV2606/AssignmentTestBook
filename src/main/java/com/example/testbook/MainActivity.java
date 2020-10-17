@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPAgerAdapter(courseCards, this);
         viewPager.setAdapter(adapter);
         viewPager.setPadding(130, 0, 130, 0);
-        viewPager.setOffscreenPageLimit(4);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
